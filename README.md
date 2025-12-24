@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+Car Dealership Platform
+A premium full-stack automotive marketplace engineered with a focus on high-end motion design, seamless transitions, and robust lead management. This platform is built to provide a high-performance storefront for luxury vehicle sales.
 
-## Getting Started
+Tech Stack
+Framework: Next.js 14 (App Router)
 
-First, run the development server:
+Styling: Styled Components, Tailwind CSS, and Modular CSS
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Animation: GSAP (GreenSock) & Framer Motion
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Smooth Scroll: Lenis Scroll (React-Lenis)
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Transitions: Next View Transitions API
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+Database: MongoDB with Mongoose (Inventory & Leads)
 
-## Learn More
+Core Features
+Fluid UI/UX: Leveraging the View Transitions API for zero-refresh page navigation and app-like "morphing" between listing and detail pages.
 
-To learn more about Next.js, take a look at the following resources:
+Dynamic Inventory: Real-time car listings managed via Mongoose schemas, allowing for advanced filtering by model, year, and price.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Hybrid Styling Architecture: Utilizing Styled Components for dynamic, prop-driven UI elements alongside Tailwind for rapid layout construction and Plain CSS for complex animation keyframes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Motion Design: Scroll-triggered animations and smooth inertia scrolling via Lenis to maintain a premium feel.
 
-## Deploy on Vercel
+System Architecture
+The platform utilizes a centralized MongoDB database to handle vehicle specifications, images, and customer lead data. The frontend is built using Next.js Server Components for optimized data fetching and SEO, while client components handle the interactive GSAP layers.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Project Roadmap
+Menu Redesign: Implementing a high-fidelity navigation system using GSAP stagger effects and Styled Components for state-driven transitions.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Gallery Overhaul: Redesigning the vehicle preview system for maximum visual impact using CSS Grid and Splide.
+
+SEO Optimization: Implementing dynamic metadata for individual vehicle pages to improve search engine rankings.
+
+Responsiveness: Finalizing mobile-first layouts and touch-optimized interactions.
+
+Communication Suite: (In Progress) Deployment of Resend for automated emails and WhatsApp dynamic inquiry links.
