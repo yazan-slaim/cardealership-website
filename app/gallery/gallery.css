@@ -1,0 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.gallery-parent {
+  width: 100vw;
+  height: 100vh;
+  font-family: sans-serif;
+  position: relative;
+  z-index: 2;
+}
+
+nav{
+    position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  padding: 2em;
+  font-size: 14px;
+  font-weight: 500;
+  bottom: 0;
+  gap: 10px;
+}
+.gallery-toggle-btn {
+  border: none;
+  background: transparent;
+  padding: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  color: #777777;          /* svg strokes use this (currentColor) */
+  transition: color 0.25s ease, transform 0.2s ease;
+}
+
+.gallery-toggle-btn:hover {
+  color: #ffffff;          /* svg strokes turn white on hover */
+  transform: scale(1.02);  /* subtle, can remove if you want ultra-minimal */
+}
+
+footer {
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 2em;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+footer {
+  bottom: 0;
+}
+
+.container {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  perspective: 1500px;
+  top: 0;
+}
+
+.gallery {
+  position: absolute;
+  top: 15%;             /* was 8% */
+  left: 50%;            /* was 52% */
+  transform-style: preserve-3d;
+  z-index: 1;           /* behind the preview image */
+  transform: translate(-50%, -50%) rotateX(55deg);
+}
+
+.item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45px;
+  height: 60px;
+  margin: 10px;
+  transform-style: preserve-3d;
+  background: lightsteelblue;
+}
+
+.gallery-parent img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 200px;
+  z-index: 0;
+}

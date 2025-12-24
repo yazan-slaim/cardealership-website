@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Halton-bold-italic";
+  src: url("../public/fonts/Halton/Halton\ bold-italic.otf");
+}
+@font-face {
+  font-family: "Halton-bold";
+  src: url("../public/fonts/Halton/Halton\ bold.otf");
+}
+@font-face {
+  font-family: "Halton-light-italic";
+  src: url("../public/fonts/Halton/Halton\ light-italic.otf");
+}
+@font-face {
+  font-family: "Halton-light";
+  src: url("../public/fonts/Halton/Halton\ light.otf");
+}
+@font-face {
+  font-family: "Halton-regular-italic";
+  src: url("../public/fonts/Halton/Halton\ regular-italic.otf");
+}
+@font-face {
+  font-family: "Halton-regular";
+  src: url("../public/fonts/Halton/Halton\ regular.otf");
+}
+@font-face {
+  font-family: "Halton-semi-bold-italic";
+  src: url("../public/fonts/Halton/Halton\ semi-bold-italic.otf");
+}
+@font-face {
+  font-family: "TrajanPro-Bold";
+  src: url("../public/fonts/trajan-pro/TrajanPro-Bold.otf");
+}
+@font-face {
+  font-family: "TrajanPro-Regular";
+  src: url("../public/fonts/trajan-pro/TrajanPro-Regular.ttf");
+}
+@font-face {
+  font-family: "Georgia";
+  src: url("../public/fonts/Georgia-Font/Georgia.ttf");
+}
+@font-face {
+  font-family: "Inter";
+  src: url("../public/fonts/Inter/Inter_28pt-Light.ttf");
+}
+@font-face {
+  font-family: "Inter-bold";
+  src: url("../public/fonts/Inter/Inter_18pt-SemiBold.ttf");
+}
+html {
+  background: black;
+}
+* {
+  cursor: none;
+}
+p {
+  cursor: none;
+  font-family: "Inter";
+}
+h1,
+h2 {
+  font-family: "TrajanPro-Regular";
+}
+button {
+  cursor: none !important;
+}
+body {
+  background: black;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  color: #fffded;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: black;
+  border-radius: 4px;
+  border: 2px solid #555;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #222;
+  border-color: #666;
+}
+.races {
+  width: fit-content;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.races h2 {
+  font-family: "Staatliches", cursive;
+  font-size: 30vw;
+  flex-shrink: 0;
+  padding-right: 0.3em;
+  padding-left: 0.3em;
+  color: #e10600;
+
+  margin: 0;
+}
+
+.races h2:last-of-type {
+  background: #e1e1ff;
+}
+
+.lightBG {
+  background: #313143;
+}
+
+.space-20vh {
+  height: 20vh;
+}
+
+.space-30vh {
+  height: 30vh;
+}
+
+.space-50vh {
+  height: 50vh;
+}
+
+.space-100vh {
+  height: 100vh;
+}
+
+.preview-img {
+  width: 300px;
+  height: 300px;
+  background-size: cover;
+  background-position: 0 0;
+  pointer-events: none;
+}
+
+::view-transition-old(root),
+::view-transition-new(root){
+  animation: none !important;
+}
+
+::view-transition-group(root){
+  z-index: auto !important;
+}
+
+::view-transition-image-pair(root){
+  isolation: isolate;
+  will-change:transform, opactiy, clip-path;
+}
+::view-transition-new(root){
+  z-index: 10000;
+  animation:none !important;
+
+}
+::view-transition-old(root){
+  z-index: 1;
+  animation:none !important;
+
+}
+.hide-footer footer {
+  display: none !important;
+}
