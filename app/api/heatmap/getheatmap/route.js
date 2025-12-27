@@ -6,7 +6,6 @@ export async function GET(req) {
   try {
     await connectMongoDB();
 
-    // Extract the 'page' query parameter
     const { searchParams } = new URL(req.url);
     const page = searchParams.get("page");
     console.log(page)
@@ -15,10 +14,8 @@ export async function GET(req) {
       return NextResponse.json({ error: "Page parameter is required" }, { status: 400 });
     }
 
-    // Fetch only documents for the specific page
     const heatmapData = await HeatMap.find({ page }, "interactions -_id").lean();
 
-    // Flatten interactions
     const flattenedInteractions = heatmapData.flatMap(doc => 
       doc.interactions.map(({ x, y, type }) => ({ x, y, type }))
     );

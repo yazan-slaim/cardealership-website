@@ -1308,7 +1308,7 @@ const addLineAndTextRef = (el) => {
           end: "bottom top",
           toggleActions: "play none none none",
           once: true,
-          markers:true,
+          markers:false,
         },
       });
     });
@@ -1322,7 +1322,7 @@ const addLineAndTextRef = (el) => {
           end: "bottom top",
           toggleActions: "play none none none",
           once: true,
-          markers:true,
+          markers:false,
 
         },
       });
@@ -1409,7 +1409,7 @@ useEffect(() => {
       scrollTrigger: {
         trigger: line,
         start: "center center",
-        markers: true,
+        markers: false,
       },
     });
 
