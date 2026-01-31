@@ -8,7 +8,6 @@ import { usePathname } from "next/navigation";
 import { useMenu } from "@/contexts/MenuContext";
 import { MenuIcon } from "@/public/svgs/Menu-Icon";
 import Link from "next/link";
-import { useTransitionRouter } from "next-view-transitions";
 
 const Header = styled.div`
   position: fixed;
@@ -19,7 +18,13 @@ const Header = styled.div`
   color: white;
   mix-blend-mode: ${({ isStockPage, isHomePage }) =>
     isStockPage || isHomePage ? "normal" : "difference"};
+    font-family: "TrajanPro-Regular";
+    *,p{
+          font-family: "TrajanPro-Regular";
+
+    }
 `;
+
 
 
 const TopHeader = styled.div`
@@ -366,6 +371,7 @@ export default function NewHeader() {
   const [interactive, setInteractive] = useState(true);
   const [filters, setFilters] = useState([]);
 const isHomePage = pathname === "/";
+
 /*
   const filters = [
     {
@@ -696,17 +702,18 @@ const handleSearchSubmit = (event) => {
   isStockPage={isStockPage}
   isHomePage={isHomePage}>
       <TopHeader isStockPage={isStockPage}>
-        <button
-          onClick={openMenu}
-          style={{
-            display: "flex",
-            flex: 1,
-            alignItems: "center",
-            gap: "6px",
-          }}
-        >
+<button
+  onClick={openMenu}
+  style={{
+    display: "flex",
+    flex: 1,
+    alignItems: "center",
+    gap: "6px",
+  }}
+>
+
           <MenuIcon />
-          MENU
+         <p> MENU</p>
         </button>
 
         <div
@@ -743,7 +750,7 @@ const handleSearchSubmit = (event) => {
               d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
             />
           </svg>
-          <button onClick={toggleSearchBar}>FIND A CAR</button>{" "}
+          <button onClick={toggleSearchBar}><p>FIND A CAR</p></button>{" "}
         </div>
       </TopHeader>
       <form onSubmit={handleSearchSubmit}>

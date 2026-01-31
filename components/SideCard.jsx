@@ -7,21 +7,25 @@ import Link from "next/link";
 // Styled Components
 const FixedRectangle = styled.div`
   position: fixed;
-  right: 0;
+  right: -10px;
   top: 50%;
   transform: translateY(-50%) translateX(215px);
 
-  height: 100px;
+  height: 120px;
   width: 250px;
   background-color: black;
+  /*
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   border-left: 1px solid rgba(255, 255, 255, 0.3);
   border-top: 1px solid rgba(255, 255, 255, 0.3);
-
+*/
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 999999;
+  *{
+    font-family: "TrajanPro-Regular";
+  }
 `;
 
 const ExpandedContent = styled.div`
@@ -35,31 +39,36 @@ const ExpandedContent = styled.div`
 `;
 
 const LinkButton = styled(Link)`
-  border-top: 1px solid rgba(255, 255, 255, 0.3);
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   width: 100%;
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
+ // border-left: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   text-decoration: none;
   transition: background 0.3s;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background:white;
+    color:black;
   }
 `;
 
 const Title = styled.div`
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  width: 35px;
+
+  block-size: auto;    /* allows full text height */
+
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-content: center;
-  padding: 5px;
+
+  white-space: nowrap;
+  overflow: hidden;
 `;
+
 
 const ExpandableRectangle = () => {
   const rectangleRef = useRef(null);
@@ -88,7 +97,15 @@ const ExpandableRectangle = () => {
       <Title>Quick Links</Title>
       <ExpandedContent>
         <LinkButton href="/newabout">Find Us</LinkButton>
-        <LinkButton href="/contact">Contact Us</LinkButton>
+      <LinkButton
+  href="/contact"
+  style={{
+    borderTop: "1px solid rgba(255, 255, 255, 0.3)",
+  }}
+>
+  Contact Us
+</LinkButton>
+
       </ExpandedContent>
     </FixedRectangle>
   );

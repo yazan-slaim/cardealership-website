@@ -147,6 +147,14 @@ body {
 ::view-transition-new(root){
   animation: none !important;
 }
+#menu-push-layer {
+  position: fixed;
+  inset: 0;
+  background: black;
+  transform: translateY(-100%);
+  z-index: 999998;
+  pointer-events: none;
+}
 
 ::view-transition-group(root){
   z-index: auto !important;

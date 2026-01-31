@@ -5,13 +5,15 @@ import styled from "@emotion/styled";
 const GalleryContainer = styled.div`
   display: flex;
   gap: 2rem;
-  width: 300vw;
+  width: 600vw;
   height: 100vh;
-  overflow-x: auto;
+
   box-sizing: border-box;
   padding: 2rem;
-  scroll-snap-type: x mandatory; /* smooth snapping */
+  scroll-snap-type: x mandatory;
+  z-index: 99000000000;
 `;
+
 
 const GalleryColumn = styled.div`
   flex-shrink: 0;
@@ -22,12 +24,28 @@ const GalleryColumn = styled.div`
   color: white;
   scroll-snap-align: start;
 `;
-
-const Image = styled.img`
+const ImageWrapper = styled.div`
+  position: relative;
   width: 400px;
   height: 250px;
+`;
+
+const Image = styled.img`
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+`;
+const ImageDuplicate = styled.img`
+  position: absolute;
+  left: 0;
+  top: 0;          /* controls overflow direction */
+  width: 400px;
+  height: 600px;
+  object-fit: cover;
+  pointer-events: none;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+  z-index: 2;
 `;
 
 export default function HorizontalFinalTemplateForGallery({ numColumns = 30 }) {
@@ -72,13 +90,24 @@ export default function HorizontalFinalTemplateForGallery({ numColumns = 30 }) {
         const imageUrl = carImages[index % carImages.length];
 
         return (
-          <GalleryColumn key={index} imagePosition={imagePosition}>
-            <Image
-              src={`${imageUrl}?auto=compress&cs=tinysrgb&w=800`} 
-              alt={`Car Image ${index + 1}`}
-              loading="lazy" // ✅ lazy-load offscreen images
-            />
-          </GalleryColumn>
+     <GalleryColumn key={index} imagePosition={imagePosition}>
+  <ImageWrapper>
+    <Image
+      src={`${imageUrl}?auto=compress&cs=tinysrgb&w=800`}
+      alt={`Car Image ${index + 1}`}
+      loading="lazy"
+    />
+
+    {index === 5 && (
+      <ImageDuplicate
+        src={`${imageUrl}?auto=compress&cs=tinysrgb&w=800`}
+        alt=""
+        aria-hidden
+      />
+    )}
+  </ImageWrapper>
+</GalleryColumn>
+
         );
       })}
     </GalleryContainer>
