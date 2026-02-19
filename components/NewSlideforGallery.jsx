@@ -15,8 +15,9 @@ const Wrapper = styled.div`
 const LeftDiv = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
   padding: 100px 100px 60px 60px;
   color: white;
 `;
@@ -26,8 +27,8 @@ const TitleWrapper = styled.div`
   transform-origin: top left;
 `;
 
-const BigTitle = styled.p`
-  font-size: 6rem;
+const BigTitle = styled.h1`
+  font-size: 2rem;
   font-weight: 500;
   line-height: 0.9;
   transform: scale(4);
@@ -57,7 +58,7 @@ const BottomRight = styled.div`
 /* RIGHT */
 const RightDiv = styled.div`
   flex: 1;
-  background-image: url("https://hips.hearstapps.com/hmg-prod/images/toyota-ft-se-sports-car-concept-exterior-110-65392a8ee4d33.jpg?crop=1xw:1xh;center,top");
+  background-image: url("https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=2400&auto=format&fit=crop");
   background-size: cover;
   background-position: center;
 `;
@@ -66,23 +67,11 @@ function NewSlideforGallery() {
   return (
     <Wrapper>
       <LeftDiv>
-        {/* TOP */}
         <TitleWrapper>
           <BigTitle>Gallery</BigTitle>
         </TitleWrapper>
 
-        {/* BOTTOM */}
-        <BottomInfo>
-          <BottomLeft>
-            A curated selection of visual work exploring form, motion, and
-            identity through design.
-          </BottomLeft>
-
-          <BottomRight>
-            © 2026<br />
-            All Rights Reserved
-          </BottomRight>
-        </BottomInfo>
+        <BottomInfo></BottomInfo>
       </LeftDiv>
 
       <RightDiv />

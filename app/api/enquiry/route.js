@@ -54,20 +54,19 @@ export async function POST(req) {
     console.error("[POST Inquiry]", error);
     return NextResponse.json(
       { error: "Failed to create inquiry" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
-
 
 export async function PUT(req) {
   try {
     await connectMongoDB();
     const { id, cleared } = await req.json();
-    const enquiry = await Enquiry.findByIdAndUpdate(
+    const enquiry = await Inquiry.findByIdAndUpdate(
       id,
       { cleared },
-      { new: true }
+      { new: true },
     );
 
     if (!enquiry) {
@@ -78,7 +77,7 @@ export async function PUT(req) {
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to clear enquiry" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -95,7 +94,7 @@ export async function GET(req) {
       if (!enquiry) {
         return NextResponse.json(
           { error: "Enquiry not found" },
-          { status: 404 }
+          { status: 404 },
         );
       }
       return NextResponse.json(enquiry);
@@ -106,7 +105,7 @@ export async function GET(req) {
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to fetch enquiries" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -122,7 +121,7 @@ export async function DELETE(req) {
     if (!id) {
       return NextResponse.json(
         { error: "Enquiry ID is required" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -134,12 +133,12 @@ export async function DELETE(req) {
 
     return NextResponse.json(
       { message: "Enquiry deleted successfully" },
-      { status: 200 }
+      { status: 200 },
     );
   } catch (error) {
     return NextResponse.json(
       { error: "Failed to delete enquiry" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }

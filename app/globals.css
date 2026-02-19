@@ -144,7 +144,7 @@ body {
 }
 
 ::view-transition-old(root),
-::view-transition-new(root){
+::view-transition-new(root) {
   animation: none !important;
 }
 #menu-push-layer {
@@ -156,23 +156,21 @@ body {
   pointer-events: none;
 }
 
-::view-transition-group(root){
+::view-transition-group(root) {
   z-index: auto !important;
 }
 
-::view-transition-image-pair(root){
+::view-transition-image-pair(root) {
   isolation: isolate;
-  will-change:transform, opactiy, clip-path;
+  will-change: transform, opactiy, clip-path;
 }
-::view-transition-new(root){
+::view-transition-new(root) {
   z-index: 10000;
-  animation:none !important;
-
+  animation: none !important;
 }
-::view-transition-old(root){
+::view-transition-old(root) {
   z-index: 1;
-  animation:none !important;
-
+  animation: none !important;
 }
 .hide-footer footer {
   display: none !important;

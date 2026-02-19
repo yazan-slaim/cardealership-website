@@ -7,7 +7,6 @@ import { useMenu } from "@/contexts/MenuContext";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
-
 /* =========================
    STYLES
    ========================= */
@@ -76,10 +75,12 @@ const SmallDivRight = styled.div`
    ========================= */
 
 export default function NewMenuTemplateNoRouting() {
+  const menuRef = useRef(null);
+
+  /*
   const { isMenuOpen, closeMenu } = useMenu();
 
-const menuRef = useRef(null);
-const pushLayer = document.getElementById("menu-push-layer");
+//const pushLayer = document.getElementById("menu-push-layer");
 
 useEffect(() => {
   if (isMenuOpen) {
@@ -115,10 +116,10 @@ useEffect(() => {
 }, [isMenuOpen]);
 
 
-
+*/
   return (
     <Wrapper ref={menuRef}>
-      <CloseButton onClick={closeMenu}>Close</CloseButton>
+      <CloseButton>Close</CloseButton>
 
       <DivLeft />
 

@@ -165,7 +165,6 @@ const InputContainer = styled.div`
   }
 `;
 
-
 const RedBorderBox = styled.div`
   flex-grow: 1;
   margin-top: 20px;
@@ -180,7 +179,7 @@ const RedBorderBox = styled.div`
 export default function NewContact() {
   const mainRef = useRef(null);
   const pathname = usePathname();
-/*
+  /*
   useEffect(() => {
     const parent = document.querySelector(".parent-container");
 
@@ -195,18 +194,17 @@ export default function NewContact() {
     }
   }, [pathname]);
   */
-const [formData, setFormData] = useState({
-  type: "",
-  title: "",
-  firstName: "",
-  lastName: "",
-  email: "",
-  contactNumber: "",
-  message: "",
-  note: "",
-  status: "new",
-});
-
+  const [formData, setFormData] = useState({
+    type: "",
+    title: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    contactNumber: "",
+    message: "",
+    note: "",
+    status: "new",
+  });
 
   // Handle input change
   const handleChange = (e) => {
@@ -323,88 +321,86 @@ const [formData, setFormData] = useState({
               <h3>FORM</h3>
               <button onClick={handleSubmit}>SUBMIT</button>
             </div>
-           <InputContainer>
-  <label>TITLE:</label>
-  <select
-    name="title"
-    value={formData.title}
-    onChange={handleChange}
-    required
-  >
-    <option value="" disabled>
-      Please select ...
-    </option>
-    <option value="mr">Mr</option>
-    <option value="ms">Ms</option>
-    <option value="mrs">Mrs</option>
-    <option value="miss">Miss</option>
-    <option value="prefer_not_to_say">Prefer not to say</option>
-  </select>
-</InputContainer>
+            <InputContainer>
+              <label>TITLE:</label>
+              <select
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Please select ...
+                </option>
+                <option value="mr">Mr</option>
+                <option value="ms">Ms</option>
+                <option value="mrs">Mrs</option>
+                <option value="miss">Miss</option>
+                <option value="prefer_not_to_say">Prefer not to say</option>
+              </select>
+            </InputContainer>
 
-<InputContainer>
-  <label>ENQUIRY TYPE:</label>
-  <select
-    name="type"
-    value={formData.type}
-    onChange={handleChange}
-    required
-  >
-    <option value="" disabled>
-      Please select ...
-    </option>
-    <option value="vehicle_purchase">Vehicle Purchase</option>
-    <option value="vehicle_sale">Vehicle Sale</option>
-    <option value="consignment_sale">Consignment Sale</option>
-    <option value="vehicle_funding">Vehicle Funding</option>
-    <option value="servicing">Servicing</option>
-  </select>
-</InputContainer>
-         <InputContainer>
-  <label>FIRST NAME:</label>
-  <input
-    type="text"
-    name="firstName"                // ✅ matches state
-    value={formData.firstName}
-    onChange={handleChange}
-    required
-  />
-</InputContainer>
+            <InputContainer>
+              <label>ENQUIRY TYPE:</label>
+              <select
+                name="type"
+                value={formData.type}
+                onChange={handleChange}
+                required
+              >
+                <option value="" disabled>
+                  Please select ...
+                </option>
+                <option value="vehicle_purchase">Vehicle Purchase</option>
+                <option value="vehicle_sale">Vehicle Sale</option>
+                <option value="consignment_sale">Consignment Sale</option>
+                <option value="vehicle_funding">Vehicle Funding</option>
+                <option value="servicing">Servicing</option>
+              </select>
+            </InputContainer>
+            <InputContainer>
+              <label>FIRST NAME:</label>
+              <input
+                type="text"
+                name="firstName" // ✅ matches state
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </InputContainer>
 
-<InputContainer>
-  <label>LAST NAME:</label>
-  <input
-    type="text"
-    name="lastName"                 // ✅ matches state
-    value={formData.lastName}
-    onChange={handleChange}
-    required
-  />
-</InputContainer>
+            <InputContainer>
+              <label>LAST NAME:</label>
+              <input
+                type="text"
+                name="lastName" // ✅ matches state
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </InputContainer>
 
-<InputContainer>
-  <label>EMAIL ADDRESS:</label>
-  <input
-    type="email"
-    name="email"                    // ✅ matches state
-    value={formData.email}
-    onChange={handleChange}
-    required
-  />
-</InputContainer>
+            <InputContainer>
+              <label>EMAIL ADDRESS:</label>
+              <input
+                type="email"
+                name="email" // ✅ matches state
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </InputContainer>
 
-<InputContainer>
-  <label>CONTACT NUMBER:</label>
-  <input
-    type="text"
-    name="contactNumber"            // ✅ matches state
-    value={formData.contactNumber}
-    onChange={handleChange}
-    required
-  />
-</InputContainer>
-
-
+            <InputContainer>
+              <label>CONTACT NUMBER:</label>
+              <input
+                type="text"
+                name="contactNumber" // ✅ matches state
+                value={formData.contactNumber}
+                onChange={handleChange}
+                required
+              />
+            </InputContainer>
 
             <InputContainer>
               <label>MESSAGE:</label>
