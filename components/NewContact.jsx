@@ -203,7 +203,6 @@ export default function NewContact() {
     contactNumber: "",
     message: "",
     note: "",
-    status: "new",
   });
 
   // Handle input change
@@ -219,21 +218,25 @@ export default function NewContact() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/enquiry", {
-        method: "POST",
-        body: JSON.stringify(formData),
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/inquiries`,
+        {
+          method: "POST",
+          body: JSON.stringify(formData),
+        },
+      );
+      const data = await response.json();
 
       if (response.ok) {
         // Reset form or show success message
         setFormData({
+          type: "",
           title: "",
-          FirstName: "",
-          LastName: "",
-          EmailAddress: "",
-          ContactNumber: "",
-          Enquiry: "",
-          Message: "",
+          firstName: "",
+          lastName: "",
+          email: "",
+          contactNumber: "",
+          message: "",
           note: "",
         });
         alert("Enquiry submitted successfully!");
@@ -241,8 +244,7 @@ export default function NewContact() {
         alert("Failed to submit enquiry.");
       }
     } catch (error) {
-      console.error("Error submitting enquiry:", error);
-      alert("An error occurred. Please try again.");
+      console.log("Error submitting enquiry:", data.error);
     }
   };
   return (
@@ -356,6 +358,8 @@ export default function NewContact() {
                 <option value="consignment_sale">Consignment Sale</option>
                 <option value="vehicle_funding">Vehicle Funding</option>
                 <option value="servicing">Servicing</option>
+                <option value="test_drive">Test Drive</option>
+                <option value="other">Other</option>
               </select>
             </InputContainer>
             <InputContainer>
