@@ -20,10 +20,6 @@ const Cursor = styled.div`
   transition: background-color 0.3s ease, border-radius 0.3s ease,
     width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
 
-  * {
-    cursor: none;
-  }
-
   @keyframes fadeInText {
     from {
       opacity: 0;
@@ -37,7 +33,6 @@ const Cursor = styled.div`
     width: 5px;
     height: 20px;
     border-radius: 25px;
-    cursor: none;
   }
 
   &.hovering-button {
@@ -46,7 +41,6 @@ const Cursor = styled.div`
     width: 35px;
     height: 35px;
     animation: pulse 1s infinite ease-in-out;
-    cursor: none;
   }
 
   &.hovering-add-note {
@@ -79,8 +73,13 @@ const GptCustomCursor = () => {
   const cursorRef = useRef(null);
 
   useEffect(() => {
-    const cursor = cursorRef.current;
+    // Skip on touch devices
+    if (window.matchMedia("(pointer: coarse)").matches) return;
 
+    const cursor = cursorRef.current;
+    if (!cursor) return;
+
+    // Smooth cursor movement
     const moveCursor = (e) => {
       gsap.to(cursor, {
         x: e.clientX,
@@ -90,85 +89,71 @@ const GptCustomCursor = () => {
       });
     };
 
-    const handleTextHover = () => {
-      cursor.classList.add("hovering-text");
+    // Event delegation — single listener on document.body instead of per-element
+    const handleMouseOver = (e) => {
+      const target = e.target;
+      if (!target) return;
+
+      // Check for add-a-note-box
+      if (target.closest(".add-a-note-box")) {
+        cursor.classList.add("hovering-add-note");
+        cursor.style.width = "0px";
+        cursor.style.height = "0px";
+        cursor.innerHTML = "";
+        return;
+      }
+
+      // Check for interactive elements (buttons, links, rectangles)
+      if (target.closest("button, a, .rectangle")) {
+        cursor.classList.add("hovering-button");
+        return;
+      }
+
+      // Check for text elements
+      const tag = target.tagName;
+      if (tag === "H1" || tag === "H2" || tag === "H3" || tag === "P") {
+        cursor.classList.add("hovering-text");
+        return;
+      }
     };
 
-    const handleTextHoverOut = () => {
-      cursor.classList.remove("hovering-text");
-    };
+    const handleMouseOut = (e) => {
+      const target = e.target;
+      if (!target) return;
 
-    const handleButtonHover = () => {
-      cursor.classList.add("hovering-button");
-    };
+      if (target.closest(".add-a-note-box")) {
+        cursor.classList.remove("hovering-add-note");
+        gsap.to(cursor, {
+          opacity: 1,
+          width: "15px",
+          height: "15px",
+          duration: 0.3,
+          ease: "power3.out",
+        });
+        return;
+      }
 
-    const handleButtonHoverOut = () => {
-      cursor.classList.remove("hovering-button");
-      cursor.innerHTML = "";
-    };
+      if (target.closest("button, a, .rectangle")) {
+        cursor.classList.remove("hovering-button");
+        cursor.innerHTML = "";
+        return;
+      }
 
-    const handleAddNoteHover = () => {
-      cursor.classList.add("hovering-add-note");
-      cursor.style.width = "0px";
-      cursor.style.height = "0px";
-      cursor.innerHTML = "";
-    };
-
-    const handleAddNoteHoverOut = () => {
-      cursor.classList.remove("hovering-add-note");
-      gsap.to(cursor, {
-        opacity: 1,
-        width: "15px",
-        height: "15px",
-        duration: 0.3,
-        ease: "power3.out",
-      });
+      const tag = target.tagName;
+      if (tag === "H1" || tag === "H2" || tag === "H3" || tag === "P") {
+        cursor.classList.remove("hovering-text");
+        return;
+      }
     };
 
     document.addEventListener("mousemove", moveCursor);
-
-    document.querySelectorAll("button, a").forEach((el) => {
-      el.addEventListener("mouseenter", handleButtonHover);
-      el.addEventListener("mouseleave", handleButtonHoverOut);
-    });
-
-    document.querySelectorAll("h1, h2, h3, p").forEach((text) => {
-      text.addEventListener("mouseenter", handleTextHover);
-      text.addEventListener("mouseleave", handleTextHoverOut);
-    });
-
-    document.querySelectorAll(".add-a-note-box").forEach((box) => {
-      box.addEventListener("mouseenter", handleAddNoteHover);
-      box.addEventListener("mouseleave", handleAddNoteHoverOut);
-    });
-    document.querySelectorAll(".rectangle").forEach((rect) => {
-  rect.addEventListener("mouseenter", handleButtonHover);
-  rect.addEventListener("mouseleave", handleButtonHoverOut);
-});
-
+    document.addEventListener("mouseover", handleMouseOver);
+    document.addEventListener("mouseout", handleMouseOut);
 
     return () => {
       document.removeEventListener("mousemove", moveCursor);
-
-      document.querySelectorAll("button, a").forEach((el) => {
-        el.removeEventListener("mouseenter", handleButtonHover);
-        el.removeEventListener("mouseleave", handleButtonHoverOut);
-      });
-
-      document.querySelectorAll("h1, h2, h3, p").forEach((text) => {
-        text.removeEventListener("mouseenter", handleTextHover);
-        text.removeEventListener("mouseleave", handleTextHoverOut);
-      });
-
-      document.querySelectorAll(".add-a-note-box").forEach((box) => {
-        box.removeEventListener("mouseenter", handleAddNoteHover);
-        box.removeEventListener("mouseleave", handleAddNoteHoverOut);
-      });
-      document.querySelectorAll(".rectangle").forEach((rect) => {
-  rect.removeEventListener("mouseenter", handleButtonHover);
-  rect.removeEventListener("mouseleave", handleButtonHoverOut);
-});
-
+      document.removeEventListener("mouseover", handleMouseOver);
+      document.removeEventListener("mouseout", handleMouseOut);
     };
   }, []);
 

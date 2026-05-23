@@ -3,15 +3,8 @@ import styled from "@emotion/styled";
 import AnimatedParagraph from "./AnimatedParagraph";
 import ImageParallax from "./Parallax/ImageParallax";
 import MagazineSlider from "./MagazineSlider";
-import { useRef, useEffect } from "react";
-import { usePathname } from "next/navigation";
-import { onPageEnter, onPageLeave } from "@/utils/animation";
-import HistoryCarousel from "@/app/test/historyCarousel/page";
+import { useRef } from "react";
 import HeritageCarousel from "./HeritageCarousel";
-import gsap from "gsap";
-import { useGSAP } from "@gsap/react";
-
-gsap.registerPlugin(useGSAP);
 
 const Wrapper = styled.div`
   padding: 200px 0 0 0;
@@ -35,7 +28,7 @@ const LittleTitle = styled.h1`
 
 const ImagesSpacer = styled.div`
   position: relative;
-  height: 170vh;
+  height: 120vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -77,22 +70,6 @@ const Container = styled.div`
 
 const NewAbout = () => {
   const mainRef = useRef(null);
-  const pathname = usePathname();
-/*
-  useGSAP(() => {
-    const parent = document.querySelector(".parent-container");
-
-    if (pathname === "/newabout") {
-      if (!parent.contains(mainRef.current)) {
-        parent.appendChild(mainRef.current);
-      }
-
-      onPageEnter(mainRef, parent);
-    } else {
-      onPageLeave(mainRef);
-    }
-  }, [pathname]);
-*/
   const firstParagraphRef = useRef(null);
   const secondParagraphRef = useRef(null);
   const thirdParagraphRef = useRef(null);
@@ -111,10 +88,10 @@ const NewAbout = () => {
       >
         <AnimatedParagraph
           passedref={thirdParagraphRef}
-          paragraph={`“ There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. ”`}
+          paragraph={`At Exquisit Motors, we believe every vehicle tells a story. From the provenance of each acquisition to the meticulous standards of our preparation process, we ensure that every car in our collection meets the highest benchmarks of quality, authenticity, and desirability. Our commitment extends beyond the transaction \u2014 we build relationships with collectors and enthusiasts who share our passion for automotive excellence. Whether sourcing a rare European import or a pristine modern classic, our global network and deep industry expertise ensure an unparalleled experience.`}
         ></AnimatedParagraph>
         <div style={{ display: "flex", justifyContent: "end" }}>
-          <h1>Written By: Founder Name</h1>
+          <h1>Written By: The Founders</h1>
         </div>
       </div>
       <div
@@ -125,15 +102,14 @@ const NewAbout = () => {
           fontSize: "12px",
         }}
       >
-        <h1>(Logo)</h1>
+        <h1>EXQUISIT</h1>
         <h3
           style={{ color: "#2E2E2E", maxWidth: "600px", textAlign: "center" }}
         >
-          Open the door to the world of creativity! Our works not only reflect
-          the beauty of art, they provoke thought, inspire new discoveries, and
-          evoke delight.
+          Open the door to the world of automotive excellence. Our collection
+          reflects the pinnacle of engineering, provenance, and design.
         </h3>
-        <h3>NYC [ 1:46 AM ]</h3>
+        <h3>AMMAN [ EST. 2024 ]</h3>
       </div>
 
       <MagazineSlider />
@@ -150,7 +126,7 @@ const NewAbout = () => {
           <LittleTitle>[about]</LittleTitle>
           <AnimatedParagraph
             passedref={firstParagraphRef}
-            paragraph={`is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen.`}
+            paragraph={`Exquisit Motors specializes in curating the finest luxury and performance vehicles. With decades of industry expertise, we source, acquire, and deliver exceptional automobiles to discerning clients worldwide.`}
           />
         </ParagprahContainer>
         <ImagesSpacer>
@@ -166,7 +142,8 @@ const NewAbout = () => {
               <Container>
                 <StyledImage
                   src="https://hips.hearstapps.com/hmg-prod/images/2024-lucid-air-sapphire-117-64cd3bf322c9a.jpg?crop=0.776xw:0.871xh;0.0705xw,0.0576xh&resize=768:*"
-                  alt="Image 1"
+                  alt="Luxury vehicle exterior"
+                  loading="lazy"
                 />
               </Container>
             </ImageParallax>
@@ -174,7 +151,8 @@ const NewAbout = () => {
               <Container>
                 <StyledImage
                   src="https://www.electrive.com/media/2023/10/lucid-air-pure-rear-wheel-drive-06-10-2023-1400x933.jpg.webp"
-                  alt="Image 2"
+                  alt="Performance vehicle rear"
+                  loading="lazy"
                 />
               </Container>
             </ImageParallax>
@@ -191,7 +169,8 @@ const NewAbout = () => {
               <Container>
                 <StyledImage
                   src="https://lucidmotors.com/s3fs-public/2023-11/lucid-gravity-exterior_0.webp"
-                  alt="Image 3"
+                  alt="Luxury SUV exterior"
+                  loading="lazy"
                 />
               </Container>
             </ImageParallax>
@@ -204,7 +183,7 @@ const NewAbout = () => {
             <LittleTitle>[exquisit]</LittleTitle>
             <AnimatedParagraph
               passedref={secondParagraphRef}
-              paragraph={`SASHA KASIUHA IS A NEW YORK BASED MULTIDISCIPLINARY ARTIST WITH A FOCUS ON MERGING CREATIVITY AND TECHNOLOGY, CONSISTENTLY PUSHES ARTISTIC BOUNDARIES TO DELIVER UNIQUE AND EMOTIONALLY RESONANT EXPERIENCE.`}
+              paragraph={`EXQUISIT MOTORS IS A PREMIER AUTOMOTIVE HOUSE DEDICATED TO MERGING HERITAGE WITH INNOVATION, DELIVERING AN UNMATCHED VEHICLE ACQUISITION EXPERIENCE TO COLLECTORS AND ENTHUSIASTS WORLDWIDE.`}
             />
           </ParagprahContainer>
         </div>
@@ -214,5 +193,3 @@ const NewAbout = () => {
 };
 
 export default NewAbout;
-
-

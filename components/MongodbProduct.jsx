@@ -22,6 +22,7 @@ import html2canvas from "html2canvas";
 import { Car } from "@/models/Car";
 import { useTransitionRouter } from "next-view-transitions";
 import FinanceCalculator from "./FinanceCalculator";
+import { useTelemetry } from "@/hooks/useTelemetry";
 
 
 
@@ -910,7 +911,8 @@ const FullscreenGallery = styled.div`
 
 
 export default function DynamicProduct(props) {
-console.log(props.product)
+  console.log(props.product);
+  useTelemetry(props.product?._id);
   const router = useTransitionRouter();
 function slideInOut() {
   document.documentElement.animate(

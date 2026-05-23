@@ -408,17 +408,20 @@ const isHomePage = pathname === "/";
   const [carCount, setCarCount] = useState(null);
 
   useEffect(() => {
+    if (pathname !== '/stock') return;
     const fetchCarCount = async () => {
-      const response = await fetch("/api/stock", {
-        method: "POST",
-        body: JSON.stringify({ searchValues }),
-      });
-      const data = await response.json();
-      setCarCount(data.count);
+      try {
+        const response = await fetch("/api/stock", {
+          method: "POST",
+          body: JSON.stringify({ searchValues }),
+        });
+        const data = await response.json();
+        setCarCount(data.count);
+      } catch (e) { console.warn('Failed to fetch car count:', e.message); }
     };
 
     fetchCarCount();
-  }, []);
+  }, [pathname]);
   useEffect(() => {
     if (prevPath !== pathname) {
       setInteractive(false); // Disable interactivity
@@ -441,27 +444,30 @@ const isHomePage = pathname === "/";
     }
   }, [pathname, prevPath]);
 useEffect(() => {
+  if (pathname !== '/stock') return;
   const fetchFilters = async () => {
-    const res = await fetch("/api/filters");
-    const data = await res.json();
+    try {
+      const res = await fetch("/api/filters");
+      const data = await res.json();
 
-    if (data.success) {
-      const formattedFilters = Object.entries(data.filters).map(
-        ([key, values]) => ({
-          id: key, // e.g. "color"
-          name: key.charAt(0).toUpperCase() + key.slice(1), // Capitalize
-          options: values.map((val) => ({
-            value: val,
-            label: val,
-          })),
-        })
-      );
-      setFilters(formattedFilters);
-    }
+      if (data.success) {
+        const formattedFilters = Object.entries(data.filters).map(
+          ([key, values]) => ({
+            id: key,
+            name: key.charAt(0).toUpperCase() + key.slice(1),
+            options: values.map((val) => ({
+              value: val,
+              label: val,
+            })),
+          })
+        );
+        setFilters(formattedFilters);
+      }
+    } catch (e) { console.warn('Failed to fetch filters:', e.message); }
   };
 
   fetchFilters();
-}, []);
+}, [pathname]);
 
 useEffect(() => {
   if (filters.length > 0) {
@@ -563,28 +569,34 @@ useEffect(() => {
     }
   };
 useEffect(() => {
-  if (pathname !== "/stock") return; // only run on stock page
+  if (pathname !== "/stock") return;
 
+  let ticking = false;
   const handleScroll = () => {
-    if (!bottomHeaderRef.current) return;
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      if (!bottomHeaderRef.current) { ticking = false; return; }
 
-    if (window.scrollY > lastScrollY.current) {
-      gsap.to(bottomHeaderRef.current, {
-        top: "-100%",
-        duration: 1.5,
-        ease: "power2.out",
-      });
-    } else {
-      gsap.to(bottomHeaderRef.current, {
-        top: "99%",
-        duration: 1,
-        ease: "power2.out",
-      });
-    }
-    lastScrollY.current = window.scrollY;
+      if (window.scrollY > lastScrollY.current) {
+        gsap.to(bottomHeaderRef.current, {
+          top: "-100%",
+          duration: 1.5,
+          ease: "power2.out",
+        });
+      } else {
+        gsap.to(bottomHeaderRef.current, {
+          top: "99%",
+          duration: 1,
+          ease: "power2.out",
+        });
+      }
+      lastScrollY.current = window.scrollY;
+      ticking = false;
+    });
   };
 
-  window.addEventListener("scroll", handleScroll);
+  window.addEventListener("scroll", handleScroll, { passive: true });
   return () => window.removeEventListener("scroll", handleScroll);
 }, [pathname]);
 

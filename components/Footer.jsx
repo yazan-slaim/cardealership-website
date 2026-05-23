@@ -110,13 +110,12 @@ export default function Footer({ isVisible }) {
         <FlexContainer>
           <Contact>
             <h3>LET'S WORK TOGETHER</h3>
-            <p>+96284934374</p>
-            <p>y.salaim@gmail.com</p>
+            <p>+962 7 999 1234</p>
+            <p>info@exquisitmotors.com</p>
           </Contact>
           <Location>
             <h3>
-              NUMBERED STUDIO HERENGRACHT 342-11016CG, AMSTERDAM THE SUNNY
-              NETHERLANDS
+              EXQUISIT MOTORS, AL-GARDENS STREET, AMMAN, JORDAN
             </h3>
           </Location>
           <Navigation>

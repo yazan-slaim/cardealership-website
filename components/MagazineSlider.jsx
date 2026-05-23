@@ -131,40 +131,40 @@ const sections = [
     backgroundImg:
       "https://lucidmotors.com/s3fs-public/2023-09/lucid-air-midnight-dream-edition-front-qtr.webp",
     title: "Luxury",
-    desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    date: "1/10/1956",
+    desc: "Where engineering precision meets uncompromising elegance.",
+    date: "EST. 2024",
     miniTitle: "Exquisite Design",
   },
   {
     backgroundImg:
       "https://lucidmotors.com/s3fs-public/2024-02/pure-stealth-front-qtr.webp",
     title: "Elegance",
-    desc: "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    date: "2/15/1965",
+    desc: "Every curve, every detail — crafted to inspire and captivate.",
+    date: "CURATED",
     miniTitle: "Superior Performance",
   },
   {
     backgroundImg:
       "https://lucidmotors.com/s3fs-public/2022-04/gt-launch-pr-hero.webp",
     title: "Premium",
-    desc: "Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    date: "3/20/1974",
+    desc: "Hand-selected vehicles that set the standard for automotive excellence.",
+    date: "GLOBAL",
     miniTitle: "Luxury Comfort",
   },
   {
     backgroundImg:
       "https://www.topgear.com/sites/default/files/2023/10/14%20Lucid%20Air%20Sapphire.jpg",
     title: "Opulence",
-    desc: "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
-    date: "4/25/1983",
+    desc: "A collection defined by provenance, condition, and exclusivity.",
+    date: "SOURCED",
     miniTitle: "Innovative Technology",
   },
   {
     backgroundImg:
       "https://media.ed.edmunds-media.com/lucid/air-grand-touring/2022/fe/2022_lucid_air-grand-touring_front_fe_901221_1600.jpg",
     title: "Prestige",
-    desc: "Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    date: "5/30/1992",
+    desc: "The pinnacle of automotive acquisition — delivered to your door.",
+    date: "DELIVERED",
     miniTitle: "Exclusive Service",
   },
 ];

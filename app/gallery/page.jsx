@@ -1,8 +1,16 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import HorizontalGallery from "@/components/Galleries/HorizontalGallery";
-import CircularGallery from "@/components/Galleries/CircularGallery";
+import dynamic from "next/dynamic";
+
+const HorizontalGallery = dynamic(
+  () => import("@/components/Galleries/HorizontalGallery"),
+  { ssr: false, loading: () => <div style={{ minHeight: "100vh" }} /> }
+);
+const CircularGallery = dynamic(
+  () => import("@/components/Galleries/CircularGallery"),
+  { ssr: false, loading: () => <div style={{ minHeight: "100vh" }} /> }
+);
 
 export default function Page() {
   const [mode, setMode] = useState("circular");

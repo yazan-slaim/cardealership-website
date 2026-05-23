@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import "@splidejs/splide/css/core";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import Link from "next/link";
+import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { onPageEnter, onPageLeave } from "@/utils/animation";
@@ -55,13 +56,11 @@ const GridItem = styled.div`
   overflow: hidden;
 `;
 const GridItemFirst = styled.div`
-  background: url("https://wallpapers-fenix.eu/full/201231/203659157.jpg");
-  background-size: cover;
-  background-position: center;
   position: relative;
   width: 100%;
   height: 272px;
   padding: 5px;
+  overflow: hidden;
 `;
 const Price = styled.h1`
   position: absolute;
@@ -280,10 +279,10 @@ const goToPage = async (page) => {
         <SplideSlide>
           <LayoutContainer>
             <LuxuryText>
-              <h1> ATTENTIVE</h1>
+              <h1>CURATED</h1>
               <p>
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
+                Every vehicle in our collection is hand-selected for its
+                provenance, condition, and investment potential.
               </p>
             </LuxuryText>
           </LayoutContainer>
@@ -291,10 +290,10 @@ const goToPage = async (page) => {
         <SplideSlide>
           <LayoutContainer>
             <LuxuryText>
-              <h1> LUXURY</h1>
+              <h1>LUXURY</h1>
               <p>
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
+                Experience the pinnacle of automotive excellence. From timeless
+                classics to modern performance machines.
               </p>
             </LuxuryText>
           </LayoutContainer>
@@ -306,13 +305,17 @@ const goToPage = async (page) => {
       <GridContainer>
         {collection.map((car) => (
           <GridItem key={car._id}>
-            <GridItemFirst
-              style={{
-                backgroundImage: `url(${car.images[0]})`,
-              }}
-            >
+            <GridItemFirst>
+              <Image
+                src={car.images[0]}
+                alt={car.title || 'Vehicle'}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                style={{ objectFit: 'cover' }}
+                loading="lazy"
+              />
               <Price>{`$${car.price}`}</Price>
-              <Logo src={car.logoImage} />
+              {car.logoImage && <Logo src={car.logoImage} />}
             </GridItemFirst>
             <GridItemDetails>
               <GridItemDetailsTitle>{car.title}</GridItemDetailsTitle>

@@ -4,68 +4,81 @@
 
 @font-face {
   font-family: "Halton-bold-italic";
-  src: url("../public/fonts/Halton/Halton\ bold-italic.otf");
+  src: url("../public/fonts/Halton/Halton bold-italic.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Halton-bold";
-  src: url("../public/fonts/Halton/Halton\ bold.otf");
+  src: url("../public/fonts/Halton/Halton bold.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Halton-light-italic";
-  src: url("../public/fonts/Halton/Halton\ light-italic.otf");
+  src: url("../public/fonts/Halton/Halton light-italic.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Halton-light";
-  src: url("../public/fonts/Halton/Halton\ light.otf");
+  src: url("../public/fonts/Halton/Halton light.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Halton-regular-italic";
-  src: url("../public/fonts/Halton/Halton\ regular-italic.otf");
+  src: url("../public/fonts/Halton/Halton regular-italic.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Halton-regular";
-  src: url("../public/fonts/Halton/Halton\ regular.otf");
+  src: url("../public/fonts/Halton/Halton regular.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Halton-semi-bold-italic";
-  src: url("../public/fonts/Halton/Halton\ semi-bold-italic.otf");
+  src: url("../public/fonts/Halton/Halton semi-bold-italic.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: "TrajanPro-Bold";
   src: url("../public/fonts/trajan-pro/TrajanPro-Bold.otf");
+  font-display: swap;
 }
 @font-face {
   font-family: "TrajanPro-Regular";
   src: url("../public/fonts/trajan-pro/TrajanPro-Regular.ttf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Georgia";
   src: url("../public/fonts/Georgia-Font/Georgia.ttf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Inter";
   src: url("../public/fonts/Inter/Inter_28pt-Light.ttf");
+  font-display: swap;
 }
 @font-face {
   font-family: "Inter-bold";
   src: url("../public/fonts/Inter/Inter_18pt-SemiBold.ttf");
+  font-display: swap;
 }
 html {
   background: black;
 }
-* {
-  cursor: none;
+
+/* Only hide cursor on devices with a fine pointer (mouse/trackpad) */
+@media (pointer: fine) {
+  * {
+    cursor: none;
+  }
 }
+
 p {
-  cursor: none;
   font-family: "Inter";
 }
 h1,
 h2 {
   font-family: "TrajanPro-Regular";
-}
-button {
-  cursor: none !important;
 }
 body {
   background: black;
@@ -162,7 +175,7 @@ body {
 
 ::view-transition-image-pair(root) {
   isolation: isolate;
-  will-change: transform, opactiy, clip-path;
+  will-change: transform, opacity, clip-path;
 }
 ::view-transition-new(root) {
   z-index: 10000;
