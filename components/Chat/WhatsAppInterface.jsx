@@ -148,15 +148,41 @@ const ThumbnailGallery = styled.div`
   border-top: 1px solid #ddd;
 `;
 
-const WhatsAppInterface = ({ clientId, vinSession }) => {
-  const [messages, setMessages] = useState([
-    {
-      id: 1,
-      sender: "AI",
-      text: "Hello! Send me a 'Fahs' report or car photos for forensic analysis.",
-      timestamp: new Date(),
-    },
-  ]);
+const renderMessageText = (text) => {
+  if (!text) return "";
+  const imgRegex = /!\[(.*?)\]\((.*?)\)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = imgRegex.exec(text)) !== null) {
+    const textBefore = text.slice(lastIndex, match.index);
+    if (textBefore) {
+      parts.push(<span key={lastIndex}>{textBefore}</span>);
+    }
+    const alt = match[1];
+    const src = match[2];
+    parts.push(
+      <div key={match.index} style={{ marginTop: 8, marginBottom: 8 }}>
+        <img 
+          src={src} 
+          alt={alt} 
+          style={{ width: "100%", borderRadius: 8, maxHeight: 180, objectFit: "cover" }} 
+        />
+      </div>
+    );
+    lastIndex = imgRegex.lastIndex;
+  }
+
+  const textAfter = text.slice(lastIndex);
+  if (textAfter) {
+    parts.push(<span key={lastIndex + "-after"}>{textAfter}</span>);
+  }
+
+  return parts.length > 0 ? parts : text;
+};
+
+const WhatsAppInterface = ({ clientId, vinSession, messages = [], setMessages }) => {
   const [inputText, setInputText] = useState("");
   const [attachments, setAttachments] = useState([]);
   const listRef = useRef(null);
@@ -176,11 +202,14 @@ const WhatsAppInterface = ({ clientId, vinSession }) => {
       sender: "USER",
       text: inputText,
       files: attachments,
-      timestamp: new Date(),
+      timestamp: new Date().toISOString(),
       isOwn: true,
     };
 
-    setMessages((prev) => [...prev, newMessage]);
+    const updatedMessages = [...messages, newMessage];
+    setMessages(updatedMessages);
+    localStorage.setItem("whatsapp_chat_history", JSON.stringify(updatedMessages));
+    
     setInputText("");
     setAttachments([]);
 
@@ -197,7 +226,6 @@ const WhatsAppInterface = ({ clientId, vinSession }) => {
 
       const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3002";
       const response = await fetch(`${apiUrl}/api/chat`, {
-        // Use env variable for backend port
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(body),
@@ -208,29 +236,37 @@ const WhatsAppInterface = ({ clientId, vinSession }) => {
         throw new Error(data.error || `Server returned ${response.status}`);
       }
 
+      if (data.clientId) {
+        localStorage.setItem("dos_client_id", data.clientId);
+      }
+
       if (data.aiMessage) {
-        setMessages((prev) => [
-          ...prev,
+        const nextMsgs = [
+          ...updatedMessages,
           {
             id: data.aiMessage._id || Date.now() + 1,
             sender: "AI",
             text: data.aiMessage.text,
             analysis: data.aiMessage.aiAnalysis,
-            timestamp: new Date(),
+            timestamp: new Date().toISOString(),
           },
-        ]);
+        ];
+        setMessages(nextMsgs);
+        localStorage.setItem("whatsapp_chat_history", JSON.stringify(nextMsgs));
       }
     } catch (err) {
       console.error("Chat Failed", err);
-      setMessages((prev) => [
-        ...prev,
+      const errMsgs = [
+        ...updatedMessages,
         {
           id: Date.now() + 2,
           sender: "AI",
-          text: `Forensic Brain Error: ${err.message}. (Check if backend is at ${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3002"})`,
-          timestamp: new Date(),
+          text: `Sales Assistant Error: ${err.message}. (Check if backend is at ${process.env.NEXT_PUBLIC_API_URL || "http://127.0.0.1:3002"})`,
+          timestamp: new Date().toISOString(),
         },
-      ]);
+      ];
+      setMessages(errMsgs);
+      localStorage.setItem("whatsapp_chat_history", JSON.stringify(errMsgs));
     }
   };
 
@@ -260,7 +296,7 @@ const WhatsAppInterface = ({ clientId, vinSession }) => {
           ></div>
         </div>
         <div className="info">
-          <h3>Forensic Advisor AI</h3>
+          <h3>Sales Advisor AI</h3>
           <span>Online</span>
         </div>
       </Header>
@@ -284,9 +320,9 @@ const WhatsAppInterface = ({ clientId, vinSession }) => {
                 )}
               </FilePreviewContainer>
             ))}
-            {msg.text}
+            {renderMessageText(msg.text)}
             <div className="time">
-              {msg.timestamp.toLocaleTimeString([], {
+              {new Date(msg.timestamp).toLocaleTimeString([], {
                 hour: "2-digit",
                 minute: "2-digit",
               })}

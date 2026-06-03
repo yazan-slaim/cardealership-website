@@ -94,8 +94,8 @@ useEffect(() => {
       <SecondPage />
       <ThirdPage featuredcars={featuredcars} />
       <FourthPage />
-      <SixthPage />
-      <ScrollSection />
+      {/* <SixthPage /> */}
+      {/* <ScrollSection /> */}
       <div style={{height: '70vh', width: '100vw'}}></div>
     </Container>
   );

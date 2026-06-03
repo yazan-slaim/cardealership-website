@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer";
 
 export async function GET(req) {
     const { searchParams } = new URL(req.url);
@@ -11,6 +10,7 @@ export async function GET(req) {
     }
 
     try {
+        const puppeteer = (await import("puppeteer")).default;
         const browser = await puppeteer.launch({ headless: "new" });
         const page = await browser.newPage();
         await page.goto(url, { waitUntil: "networkidle2" });

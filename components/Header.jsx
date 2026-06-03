@@ -129,7 +129,7 @@ export default function Header() {
         <div style={{ display: "flex", justifyContent: "center", gap: "10px" }}>
           <Link href={"/"}>Home</Link>
           <Link href={"/contact"}>Contact</Link>
-          <Link href={"/newabout"}>About</Link>
+          <Link href={"/about"}>About</Link>
         </div>
         {pathname == "/stock" && (
           <ContainersNav showExtraComponents={showExtraComponents} />

@@ -29,11 +29,7 @@ const Cursor = styled.div`
     }
   }
 
-  &.hovering-text {
-    width: 5px;
-    height: 20px;
-    border-radius: 25px;
-  }
+
 
   &.hovering-button {
     background-color: transparent;
@@ -109,12 +105,7 @@ const GptCustomCursor = () => {
         return;
       }
 
-      // Check for text elements
-      const tag = target.tagName;
-      if (tag === "H1" || tag === "H2" || tag === "H3" || tag === "P") {
-        cursor.classList.add("hovering-text");
-        return;
-      }
+
     };
 
     const handleMouseOut = (e) => {
@@ -139,11 +130,7 @@ const GptCustomCursor = () => {
         return;
       }
 
-      const tag = target.tagName;
-      if (tag === "H1" || tag === "H2" || tag === "H3" || tag === "P") {
-        cursor.classList.remove("hovering-text");
-        return;
-      }
+
     };
 
     document.addEventListener("mousemove", moveCursor);

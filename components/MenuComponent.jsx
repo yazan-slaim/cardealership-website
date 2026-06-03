@@ -165,10 +165,10 @@ export default function MenuTemplate() {
   </StyledA>
 
   <StyledA
-    href="/newabout"
+    href="/about"
     onClick={(e) => {
       e.preventDefault();
-      router.push("/newabout", { onTransitionReady: slideInOut });
+      router.push("/about", { onTransitionReady: slideInOut });
     }}
   >
     ABOUT
@@ -184,15 +184,6 @@ export default function MenuTemplate() {
     CONTACT
   </StyledA>
 
-  <StyledA
-    href="/gallery"
-    onClick={(e) => {
-      e.preventDefault();
-      router.push("/gallery", { onTransitionReady: slideInOut });
-    }}
-  >
-    GALLERY
-  </StyledA>
     <StyledA
     href="/stock/66f9bfe39d94d5d534920be5"
     onClick={(e) => {

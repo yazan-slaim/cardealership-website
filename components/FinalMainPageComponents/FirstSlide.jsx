@@ -4,6 +4,7 @@ import Link from "next/link";
 import styled from "@emotion/styled";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { useTranslations } from 'next-intl';
 
 gsap.registerPlugin(useGSAP);
 const Section = styled.div`
@@ -97,6 +98,7 @@ const StyledLink = styled(Link)`
 `;
 
 export default function FirstSlide() {
+  const t = useTranslations('FirstSlide');
   const section = useRef();
   useGSAP(
     () => {
@@ -129,8 +131,8 @@ export default function FirstSlide() {
         Your browser does not support the video tag.
       </video>
       <CenterContainer>
-        <h2>luxury car service represents</h2>
-        <h1>EXPLORE ELEGANCE</h1>
+        <h2>{t('subtitle')}</h2>
+        <h1>{t('title')}</h1>
       </CenterContainer>
     </Section>
   );

@@ -10,6 +10,36 @@ import {
   faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import { useTransitionRouter } from "next-view-transitions";
+
+function slideInOut() {
+  document.documentElement.animate(
+    [
+      { opacity: 1, transform: "translateY(0)" },
+      { opacity: 0.2, transform: "translateY(-35%)" },
+    ],
+    {
+      duration: 1500,
+      easing: "cubic-bezier(0.87, 0, 0.13, 1)",
+      fill: "forwards",
+      pseudoElement: "::view-transition-old(root)",
+    }
+  );
+
+  document.documentElement.animate(
+    [
+      { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" },
+      { clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" },
+    ],
+    {
+      duration: 1500,
+      easing: "cubic-bezier(0.87, 0, 0.13, 1)",
+      fill: "forwards",
+      pseudoElement: "::view-transition-new(root)",
+    }
+  );
+}
+
 const FooterContainer = styled.footer`
   background: black;
   background-position: center;
@@ -103,6 +133,13 @@ const StyledFacebookIcon = styled(FontAwesomeIcon)`
 `;
 
 export default function Footer({ isVisible }) {
+  const router = useTransitionRouter();
+
+  const handleNavigation = (e, path) => {
+    e.preventDefault();
+    router.push(path, { onTransitionReady: slideInOut });
+  };
+
   return (
     <FooterContainer isVisible={true}>
       <ContentWrapper>
@@ -122,11 +159,10 @@ export default function Footer({ isVisible }) {
             <div
               style={{ display: "flex", flexDirection: "column", gap: "13px" }}
             >
-              <Link href={"/newabout"}>ABOUT</Link>
-              <Link href={"/contact"}> CONTACT</Link>
-              <Link href={"/gallery"}> GALLERY</Link>
-              <Link href={"/"}> SELL-YOURS</Link>
-              <Link href={"/stock"}> STOCK</Link>
+              <a href={"/about"} onClick={(e) => handleNavigation(e, "/about")}>ABOUT</a>
+              <a href={"/contact"} onClick={(e) => handleNavigation(e, "/contact")}> CONTACT</a>
+              <a href={"/sell-yours"} onClick={(e) => handleNavigation(e, "/sell-yours")}> SELL-YOURS</a>
+              <a href={"/stock"} onClick={(e) => handleNavigation(e, "/stock")}> STOCK</a>
             </div>
           </Navigation>
           <SocialMedia>

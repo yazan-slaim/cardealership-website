@@ -8,6 +8,8 @@ import { usePathname } from "next/navigation";
 import { useMenu } from "@/contexts/MenuContext";
 import { MenuIcon } from "@/public/svgs/Menu-Icon";
 import Link from "next/link";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useTranslations } from 'next-intl';
 
 const Header = styled.div`
   position: fixed;
@@ -16,8 +18,8 @@ const Header = styled.div`
   flex-direction: column;
   z-index: 99999;
   color: white;
-  mix-blend-mode: ${({ isStockPage, isHomePage }) =>
-    isStockPage || isHomePage ? "normal" : "difference"};
+  mix-blend-mode: ${({ isStockPage }) =>
+    isStockPage ? "normal" : "difference"};
     font-family: "TrajanPro-Regular";
     *,p{
           font-family: "TrajanPro-Regular";
@@ -362,7 +364,8 @@ function slideInOut() {
   )
 }
 
-export default function NewHeader() {
+export default function NewHeader({ dealership }) {
+  const t = useTranslations('Header');
   const pathname = usePathname();
   const containerRef = useRef(null);
   const searchHeaderRef = useRef(null);
@@ -725,7 +728,7 @@ const handleSearchSubmit = (event) => {
 >
 
           <MenuIcon />
-         <p> MENU</p>
+         <p> {t('menu')}</p>
         </button>
 
         <div
@@ -734,9 +737,11 @@ const handleSearchSubmit = (event) => {
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
+            gap: "16px",
           }}
         >
-          <h1 style={{ fontSize: "1rem" }}>Logo</h1>
+          <h1 style={{ fontSize: "1rem" }}>{dealership?.name || "Logo"}</h1>
+          <LanguageSwitcher />
         </div>
         <div
           style={{
@@ -762,7 +767,7 @@ const handleSearchSubmit = (event) => {
               d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
             />
           </svg>
-          <button onClick={toggleSearchBar}><p>FIND A CAR</p></button>{" "}
+          <button onClick={toggleSearchBar}><p>{t('find_car')}</p></button>{" "}
         </div>
       </TopHeader>
       <form onSubmit={handleSearchSubmit}>
@@ -787,13 +792,12 @@ const handleSearchSubmit = (event) => {
               />
             </svg>
           </SearchIcon>
-
           <SearchInput
             id="search"
             name="search"
             type="search"
             autoComplete="off"
-            placeholder="Search products..."
+            placeholder={t('search_placeholder')}
             defaultValue={""}
           />
         </SearchBarContainer>

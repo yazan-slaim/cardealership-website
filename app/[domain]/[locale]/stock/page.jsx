@@ -1,8 +1,10 @@
 import StockPage from "@/components/StockPage";
 import { connectMongoDB } from "@/lib/mongodb";
 import { Car } from "@/models/Car";
+import { Dealership } from "@/models/Dealership";
 
-export default async function page({ searchParams }) {
+export default async function page({ params, searchParams }) {
+  const { domain } = params;
   const {
     date = "desc",
     price,
@@ -17,6 +19,15 @@ export default async function page({ searchParams }) {
 
   await connectMongoDB();
 
+  // Find the dealership based on the domain/subdomain
+  let dealership = await Dealership.findOne({
+    $or: [{ subdomain: domain }, { customDomain: domain }]
+  });
+
+  if (!dealership) {
+    dealership = await Dealership.findOne(); 
+  }
+
   // ✅ Sorting logic
   const sort = {};
   if (price) sort.price = price === "desc" ? -1 : 1;
@@ -27,6 +38,9 @@ export default async function page({ searchParams }) {
 
   // ✅ Filtering logic
   const query = {};
+  if (dealership) {
+    query.dealershipId = dealership._id;
+  }
   if (color) query.color = color;
   if (bodyType) query.bodyType = bodyType;
   if (carMake) query.carMake = carMake;

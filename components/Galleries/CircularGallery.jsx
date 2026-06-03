@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import ScrollTrigger from "gsap/ScrollTrigger";
-import "@/app/gallery/gallery.css";
+import "@/app/[domain]/[locale]/gallery/gallery.css";
 
 gsap.registerPlugin(useGSAP);
 gsap.registerPlugin(ScrollTrigger);

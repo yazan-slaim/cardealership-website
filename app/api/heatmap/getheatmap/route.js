@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { HeatMap } from "@/model/HeatMap";
+import { HeatMap } from "@/models/HeatMap";
 import { connectMongoDB } from "@/lib/mongodb";
 
 export async function GET(req) {

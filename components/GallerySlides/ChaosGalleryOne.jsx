@@ -68,16 +68,17 @@ export default function ChaosGalleryOne({ passedcontainerAnimation }) {
   */
   useGSAP(() => {
     const ctx = gsap.context(() => {
+      const isRtl = typeof document !== 'undefined' && document.documentElement.dir === 'rtl';
       gsap.fromTo(
         demoImageRef.current,
-        { x: -50 },
+        { x: isRtl ? 50 : -50 },
         {
-          x: 50,
+          x: isRtl ? -50 : 50,
           ease: "none",
           scrollTrigger: {
             trigger: wrapperRef.current,
-            start: "left center",
-            end: "right center",
+            start: isRtl ? "right center" : "left center",
+            end: isRtl ? "left center" : "right center",
             scrub: true,
             markers: true,
             horizontal: true,

@@ -174,8 +174,10 @@ const HeritageCarousel = () => {
 
   useEffect(() => {
     columnRefs.current.forEach((project) => {
-      project.addEventListener("mousemove", moveProject);
-      project.addEventListener("mousemove", moveProjectImg.bind(null, project));
+      if (project) {
+        project.addEventListener("mousemove", moveProject);
+        project.addEventListener("mousemove", moveProjectImg.bind(null, project));
+      }
     });
 
     return () => {

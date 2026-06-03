@@ -3,6 +3,35 @@ import { useRef, useEffect } from "react";
 import styled from "@emotion/styled";
 import gsap from "gsap";
 import Link from "next/link";
+import { useTransitionRouter } from "next-view-transitions";
+
+function slideInOut() {
+  document.documentElement.animate(
+    [
+      { opacity: 1, transform: "translateY(0)" },
+      { opacity: 0.2, transform: "translateY(-35%)" },
+    ],
+    {
+      duration: 1500,
+      easing: "cubic-bezier(0.87, 0, 0.13, 1)",
+      fill: "forwards",
+      pseudoElement: "::view-transition-old(root)",
+    }
+  );
+
+  document.documentElement.animate(
+    [
+      { clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" },
+      { clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" },
+    ],
+    {
+      duration: 1500,
+      easing: "cubic-bezier(0.87, 0, 0.13, 1)",
+      fill: "forwards",
+      pseudoElement: "::view-transition-new(root)",
+    }
+  );
+}
 
 // Styled Components
 const FixedRectangle = styled.div`
@@ -38,7 +67,7 @@ const ExpandedContent = styled.div`
   height: 100%;
 `;
 
-const LinkButton = styled(Link)`
+const LinkButton = styled.a`
   flex: 1;
   display: flex;
   justify-content: center;
@@ -72,6 +101,12 @@ const Title = styled.div`
 
 const ExpandableRectangle = () => {
   const rectangleRef = useRef(null);
+  const router = useTransitionRouter();
+
+  const handleNavigation = (e, path) => {
+    e.preventDefault();
+    router.push(path, { onTransitionReady: slideInOut });
+  };
 
   useEffect(() => {
     const rectangle = rectangleRef.current;
@@ -96,16 +131,16 @@ const ExpandableRectangle = () => {
     <FixedRectangle ref={rectangleRef}>
       <Title>Quick Links</Title>
       <ExpandedContent>
-        <LinkButton href="/newabout">Find Us</LinkButton>
-      <LinkButton
-  href="/contact"
-  style={{
-    borderTop: "1px solid rgba(255, 255, 255, 0.3)",
-  }}
->
-  Contact Us
-</LinkButton>
-
+        <LinkButton href="/about" onClick={(e) => handleNavigation(e, "/about")}>Find Us</LinkButton>
+        <LinkButton
+          href="/contact"
+          onClick={(e) => handleNavigation(e, "/contact")}
+          style={{
+            borderTop: "1px solid rgba(255, 255, 255, 0.3)",
+          }}
+        >
+          Contact Us
+        </LinkButton>
       </ExpandedContent>
     </FixedRectangle>
   );

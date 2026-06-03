@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { ArrowLongLeft } from "@/public/svgs/Arrow-Long-Left";
 import Footer from "../Footer";
-import ContactUsPage from "@/app/contact/page";
+import NewContact from "@/components/NewContact";
 import ReviewsPage from "../ReviewsPage";
 import { Global, css } from "@emotion/react";
 import SellYoursPage from "../SellYoursPage";
@@ -203,7 +203,7 @@ export default function ThirdSlideTemplage() {
         </Wrapper>
 
         <Section active={activeSection === "contact"}>
-          <ContactUsPage />
+          <NewContact />
           {activeSection === "contact" && (
             <BackButton onClick={() => setActiveSection("")}>
               <ArrowLongLeft />
