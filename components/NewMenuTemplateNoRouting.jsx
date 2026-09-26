@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useTranslations } from 'next-intl';
 import { useTransitionRouter } from "next-view-transitions";
 import { usePathname } from "next/navigation";
+
 gsap.registerPlugin(ScrollTrigger);
 
 /* =========================
@@ -81,7 +82,7 @@ const CloseButton = styled.button`
 
 const DivLeft = styled.div`
   flex: 1;
-  background: #111;
+  background: url('/images/limo.jpg') center/cover no-repeat;
 `;
 
 const DivRight = styled.div`
@@ -124,13 +125,15 @@ const SmallDivRight = styled.div`
    COMPONENT
    ========================= */
 
-export default function NewMenuTemplateNoRouting() {
+export default function NewMenuTemplateNoRouting({ dealership }) {
   const t = useTranslations('Menu');
   const tHeader = useTranslations('Header');
   const menuRef = useRef(null);
   const { isMenuOpen, closeMenu } = useMenu();
   const router = useTransitionRouter();
   const pathname = usePathname();
+
+  const isRental = dealership?.businessType === "rental";
 
   // Close menu when the route changes
   useEffect(() => {
@@ -190,33 +193,55 @@ export default function NewMenuTemplateNoRouting() {
 
   return (
     <Wrapper ref={menuRef}>
-      <CloseButton onClick={closeMenu}>{tHeader('close')}</CloseButton>
+      <CloseButton onClick={closeMenu}>
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-x"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+      </CloseButton>
 
       <DivLeft />
 
       <DivRight>
         <SmallDivLeft>
           <h1 onClick={() => handleNavigation("/")}>{t('home')}</h1>
-          <h1 onClick={() => handleNavigation("/stock")}>{t('projects')}</h1>
-          <h1 onClick={() => handleNavigation("/about")}>{t('expertise')}</h1>
+          {isRental ? (
+            <>
+              <h1 onClick={() => handleNavigation("/stock")}>Fleet</h1>
+              <h1 onClick={() => handleNavigation("/book")}>Book Now</h1>
+            </>
+          ) : (
+            <>
+              <h1 onClick={() => handleNavigation("/stock")}>{t('inventory')}</h1>
+              <h1 onClick={() => handleNavigation("/carmake")}>{t('brands')}</h1>
+            </>
+          )}
           <h1 onClick={() => handleNavigation("/about")}>{t('about')}</h1>
           <h1 onClick={() => handleNavigation("/contact")}>{t('contact')}</h1>
         </SmallDivLeft>
 
         <SmallDivRight>
           <div>
-            <p>{t('plans')}</p>
-            <p>{t('vision')}</p>
-            <p>{t('research')}</p>
+            {isRental ? (
+              <>
+                <p>Rates & Policies</p>
+                <p>Insurance</p>
+                <p>FAQ</p>
+              </>
+            ) : (
+              <>
+                <p>{t('sell')}</p>
+                <p>{t('financing')}</p>
+                <p>{t('warranty')}</p>
+              </>
+            )}
           </div>
 
           <div>
-            <p>+31 (0)26 2344 904</p>
-            <p>mail@studiod.nu</p>
-            <p>{tHeader('logo')}</p>
+            <p>{dealership?.contactInfo?.phone || "+31 (0)26 2344 904"}</p>
+            <p>{dealership?.contactInfo?.email || "mail@studiod.nu"}</p>
+            <p>{dealership?.name || tHeader('logo')}</p>
           </div>
         </SmallDivRight>
       </DivRight>
     </Wrapper>
   );
 }
+

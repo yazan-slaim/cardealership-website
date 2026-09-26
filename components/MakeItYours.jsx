@@ -1,6 +1,7 @@
 'use client';
 import React from 'react';
 import styled from '@emotion/styled';
+import { useTransitionRouter } from "next-view-transitions";
 
 const Container = styled.div`
   width: 100vw;
@@ -35,6 +36,7 @@ const ActionButton = styled.div`
   text-align: center;
   border: 1px solid white;
   transition: 0.3s;
+  cursor: pointer;
 
   &:hover {
     background-color: white;
@@ -74,7 +76,24 @@ const ColorCircle = styled.div`
   border: 2px solid white;
 `;
 
+function slideInOut() {
+  document.documentElement.animate(
+    [{ opacity: 1, transform: "translateY(0)" }, { opacity: 0.2, transform: "translateY(-35%)" }],
+    { duration: 1500, easing: "cubic-bezier(0.87, 0, 0.13, 1)", fill: "forwards", pseudoElement: "::view-transition-old(root)" }
+  );
+  document.documentElement.animate(
+    [{ clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)" }, { clipPath: "polygon(0% 100%, 100% 100%, 100% 0%, 0% 0%)" }],
+    { duration: 1500, easing: "cubic-bezier(0.87, 0, 0.13, 1)", fill: "forwards", pseudoElement: "::view-transition-new(root)" }
+  );
+}
+
 export default function MakeItYours({ price, title, mileage, color, year, background }) {
+  const router = useTransitionRouter();
+
+  const handleNavigate = () => {
+    router.push('/contact', { onTransitionReady: slideInOut });
+  };
+
   return (
     <Container imageUrl={"https://tolleson.com/wp-content/uploads/2020/09/Lucid-Retail-1-1.jpg"}>
       <MiddleContainer>
@@ -86,10 +105,11 @@ export default function MakeItYours({ price, title, mileage, color, year, backgr
           <div>year: <span>{year}</span></div>
         </InfoContainer>
         <ButtonsContainer>
-          <ActionButton>enquire now</ActionButton>
-          <ActionButton>test drive</ActionButton>
+          <ActionButton onClick={handleNavigate}>enquire now</ActionButton>
+          <ActionButton onClick={handleNavigate}>test drive</ActionButton>
         </ButtonsContainer>
       </MiddleContainer>
     </Container>
   );
 }
+

@@ -12,19 +12,19 @@ import {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  height: 600px;
-  width: 400px;
-  background-color: #e5ddd5;
-  border-radius: 12px;
+  height: 500px;
+  width: 340px;
+  background-color: #f7f9fc;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 `;
 
 const Header = styled.div`
-  background-color: #075e54;
+  background-color: #1a1a1a;
   color: white;
-  padding: 12px 16px;
+  padding: 16px 20px;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -44,30 +44,31 @@ const Header = styled.div`
 
 const MessageList = styled.div`
   flex: 1;
-  padding: 16px;
+  padding: 20px 16px;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
-  gap: 8px;
-  background-image: url("https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png");
-  background-repeat: repeat;
+  gap: 12px;
+  background-color: #f7f9fc;
 `;
 
 const Bubble = styled.div`
-  max-width: 80%;
-  padding: 8px 12px;
-  border-radius: 8px;
+  max-width: 85%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  border-bottom-right-radius: ${(props) => (props.isOwn ? "4px" : "18px")};
+  border-bottom-left-radius: ${(props) => (props.isOwn ? "18px" : "4px")};
   position: relative;
-  font-size: 14px;
-  line-height: 1.4;
-  color: #000000; /* Ensure text is always visible */
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: ${(props) => (props.isOwn ? "#ffffff" : "#222222")};
   align-self: ${(props) => (props.isOwn ? "flex-end" : "flex-start")};
-  background-color: ${(props) => (props.isOwn ? "#dcf8c6" : "#ffffff")};
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+  background-color: ${(props) => (props.isOwn ? "#1a1a1a" : "#ffffff")};
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.04);
 
   .time {
     font-size: 10px;
-    color: rgba(0, 0, 0, 0.45);
+    color: ${(props) => (props.isOwn ? "rgba(255, 255, 255, 0.7)" : "rgba(0, 0, 0, 0.45)")};
     text-align: right;
     margin-top: 4px;
     display: flex;
@@ -129,7 +130,7 @@ const InputWrapper = styled.div`
 `;
 
 const SendButton = styled.div`
-  background-color: #00a884;
+  background-color: #1a1a1a;
   color: white;
   width: 40px;
   height: 40px;
@@ -138,6 +139,10 @@ const SendButton = styled.div`
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  transition: opacity 0.2s;
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const ThumbnailGallery = styled.div`

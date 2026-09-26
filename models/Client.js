@@ -71,6 +71,25 @@ const clientSchema = new mongoose.Schema(
     notes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Note" }],
     purchases: [{ type: mongoose.Schema.Types.ObjectId, ref: "SoldCar" }],
     files: [{ type: mongoose.Schema.Types.ObjectId, ref: "File" }],
+
+    // ── Rental-specific fields (only used when businessType === 'rental') ──
+    driverLicense: {
+      number: { type: String, trim: true, default: "" },
+      expiry: Date,
+      frontImage: String,
+      backImage: String,
+    },
+    idDocument: {
+      type: { type: String, trim: true, default: "" }, // passport / national ID
+      number: { type: String, trim: true, default: "" },
+      image: String,
+    },
+    bookings: {
+      type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Booking" }],
+      default: [],
+    },
+    totalRentals: { type: Number, default: 0 },
+    totalSpent: { type: Number, default: 0 },
   },
   { timestamps: true }
 );

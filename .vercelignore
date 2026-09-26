@@ -1,0 +1,5 @@
+public/videos
+public/docs
+.next
+node_modules
+app/test

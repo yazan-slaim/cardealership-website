@@ -397,7 +397,13 @@ const goToPage = async (page) => {
       router.push(`/stock/${car._id}`, { onTransitionReady: slideInOut });
     }}
   >view</StyledA>
-                <button>enquire</button>
+                <StyledA
+    href="/contact"
+    onClick={(e) => {
+      e.preventDefault();
+      router.push(`/contact`, { onTransitionReady: slideInOut });
+    }}
+  >enquire</StyledA>
               </ButtonsContainer>
             </GridItemDetails>
           </GridItem>

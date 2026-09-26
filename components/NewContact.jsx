@@ -13,9 +13,10 @@ const Wrapper = styled.div`
   color: #fffded;
   width: 100vw;
   padding: 50px;
+  padding-top: 120px;
   text-transform: uppercase;
   position: relative;
-  margin-top: 20px;
+  margin-top: 0;
   z-index: 5;
   * {
     font-family: "Inter";
@@ -24,14 +25,15 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.div`
-  font-size: 15rem;
+  font-size: clamp(3rem, 12vw, 15rem);
   letter-spacing: 8px;
   text-align: center;
   line-height: 1;
   display: flex;
   justify-content: center;
   font-family: "Inter-bold";
-  transform: scaleX(1.22) scaleY(1.35);
+  width: 100%;
+  overflow: hidden;
 `;
 
 const LowerContainer = styled.div`

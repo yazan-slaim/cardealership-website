@@ -20,14 +20,14 @@
   },
   "Menu": {
     "home": "Home",
-    "projects": "Projects",
-    "themes": "Themes",
-    "expertise": "Expertise",
+    "inventory": "Inventory",
+    "brands": "Car Brands",
+    "services": "Our Services",
     "about": "About Us",
     "contact": "Contact",
-    "plans": "Plans",
-    "vision": "Vision & Strategy",
-    "research": "Design Research"
+    "sell": "Sell Your Car",
+    "financing": "Financing & Leasing",
+    "warranty": "Warranty Options"
   },
   "FirstSlide": {
     "subtitle": "luxury car service represents",

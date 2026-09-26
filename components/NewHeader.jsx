@@ -767,7 +767,7 @@ const handleSearchSubmit = (event) => {
               d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
             />
           </svg>
-          <button onClick={toggleSearchBar}><p>{t('find_car')}</p></button>{" "}
+          <button onClick={toggleSearchBar}><p>{dealership?.businessType === "rental" ? "Browse Fleet" : t('find_car')}</p></button>{" "}
         </div>
       </TopHeader>
       <form onSubmit={handleSearchSubmit}>

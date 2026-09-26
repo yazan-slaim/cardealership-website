@@ -628,8 +628,9 @@ const LeftLastPart = styled.div`
   flex: 2;
 `;
 const StyledHeading = styled.h1`
-  padding: 80px 0px 0px 50px;
+  padding: 80px 50px 0px 50px;
   font-size: 2rem;
+  text-align: center;
 `;
 const BigSquare = styled.div`
   flex: 2;
@@ -1947,15 +1948,6 @@ useEffect(() => {
               </div>
             </div>
           </GlanceContent>
-                    <FinanceCalculator price={props.product.price} />
-          <MakeItYours
-            mileage={props.product.mileage}
-            color={props.product.color}
-            price={props.product.price}
-            title={props.product.title}
-            year={props.product.year}
-            background={props.product.images[1]}
-          />
         </CarDetails>
         {/*
                 <LastPart>

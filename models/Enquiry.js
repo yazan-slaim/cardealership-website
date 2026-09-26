@@ -4,7 +4,7 @@ const EnquirySchema = new Schema(
   {
     type: {
       type: String,
-      enum: ["sell_car", "general", "car_enquiry", "test_drive"],
+      enum: ["sell_car", "general", "car_enquiry", "test_drive", "rental_enquiry", "long_term_rental"],
       required: true,
     },
 

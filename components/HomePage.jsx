@@ -6,7 +6,6 @@ import SecondPage from "./FinalMainPageComponents/SecondPage";
 import ThirdPage from "./FinalMainPageComponents/ThirdPage";
 import FourthPage from "./FinalMainPageComponents/FourthPage";
 import SixthPage from "./FinalMainPageComponents/SixthPage";
-import ScrollSection from "@/app/test/horizontalscroll-test/ScrollSection";
 import { usePathname } from "next/navigation";
 import { onPageEnter, onPageLeave } from "@/utils/animation";
 import gsap from "gsap";
@@ -96,7 +95,7 @@ useEffect(() => {
       <FourthPage />
       {/* <SixthPage /> */}
       {/* <ScrollSection /> */}
-      <div style={{height: '70vh', width: '100vw'}}></div>
+      <div style={{height: '10vh', width: '100vw'}}></div>
     </Container>
   );
 }

@@ -1,6 +1,8 @@
 import StockPage from "@/components/StockPage";
+import RentalFleetPage from "@/components/RentalFleetPage";
 import { connectMongoDB } from "@/lib/mongodb";
 import { Car } from "@/models/Car";
+import { Fleet } from "@/models/Fleet";
 import { Dealership } from "@/models/Dealership";
 
 export default async function page({ params, searchParams }) {
@@ -14,7 +16,7 @@ export default async function page({ params, searchParams }) {
     transmission,
     fuel,
     search,
-    page = 1, // ✅ default page
+    page = 1,
   } = searchParams;
 
   await connectMongoDB();
@@ -28,6 +30,65 @@ export default async function page({ params, searchParams }) {
     dealership = await Dealership.findOne(); 
   }
 
+  // ─── RENTAL BUSINESS → Fleet Grid ───────────
+  if (dealership?.businessType === "rental") {
+    const filter = {
+      dealershipId: dealership._id,
+      isActive: true,
+      status: "available",
+    };
+
+    if (bodyType) filter.bodyType = bodyType;
+    if (fuel) filter.fuel = fuel;
+    if (transmission) filter.transmission = transmission;
+    if (search) {
+      const regex = new RegExp(search, "i");
+      filter.$or = [
+        { title: regex },
+        { carMake: regex },
+        { model: regex },
+      ];
+    }
+
+    const sortField = price ? "dailyRate" : "createdAt";
+    const sortOrder = price === "asc" ? 1 : -1;
+
+    const limit = 20;
+    const skip = (parseInt(page) - 1) * limit;
+
+    const [fleet, totalCars] = await Promise.all([
+      Fleet.find(filter)
+        .select("title carMake model year color bodyType transmission fuel seats mileage images features dailyRate weeklyRate monthlyRate status Featured")
+        .sort({ [sortField]: sortOrder, _id: -1 })
+        .skip(skip)
+        .limit(limit)
+        .lean(),
+      Fleet.countDocuments(filter),
+    ]);
+
+    // Get filter options
+    const filterBase = { dealershipId: dealership._id, isActive: true, status: "available" };
+    const [bodyTypes, fuels, transmissions] = await Promise.all([
+      Fleet.distinct("bodyType", filterBase),
+      Fleet.distinct("fuel", filterBase),
+      Fleet.distinct("transmission", filterBase),
+    ]);
+
+    return (
+      <RentalFleetPage
+        collection={JSON.parse(JSON.stringify(fleet))}
+        totalCars={totalCars}
+        filters={{
+          bodyType: bodyTypes.filter(Boolean).sort(),
+          fuel: fuels.filter(Boolean).sort(),
+          transmission: transmissions.filter(Boolean).sort(),
+        }}
+        dealership={JSON.parse(JSON.stringify(dealership))}
+      />
+    );
+  }
+
+  // ─── DEALERSHIP BUSINESS (existing) ─────────
   // ✅ Sorting logic
   const sort = {};
   if (price) sort.price = price === "desc" ? -1 : 1;
@@ -73,3 +134,4 @@ export default async function page({ params, searchParams }) {
 
   return <StockPage collection={mongocars} totalCars={totalCars} />;
 }
+
